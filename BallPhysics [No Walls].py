@@ -1,0 +1,80 @@
+
+# Classic ball physics
+
+from turtle import *
+from random import *
+
+g = 0.3 #Gravity Value
+ekeep = -0.8 #Energy loss and inversing from hard collision
+efade = 0.9 #Energy loss from constant soft collision
+
+loop = 0
+
+wn = Screen()
+wn.title("Ball Physics Simulator [ No Walls ]")
+wn.bgcolor("black")
+
+ball = Turtle()
+ball.shape("circle")
+ball.color("white")
+ball.turtlesize(1)
+ball.setheading(0)
+ball.speed(0)
+ball.penup()
+ball.showturtle()
+ball.pensize(1)
+
+while True:
+    
+    #Window Limitations
+    floor = round(wn.window_height() / -2) #Y co-ord of bottom
+    walls = round(wn.window_width() / 2) #X co-ord of right
+
+    #Choose Ball Start
+    yco = randrange(floor,floor*-1)
+    xco = randrange(walls*-1,walls)
+    dy = randrange(-30,30)
+    dx = randrange(-40,40)
+
+    ball.penup() #Ball Line Decider
+
+    for loop in range(500):
+
+        #Window Limitations
+        floor = round(wn.window_height() / -2)
+        walls = round(wn.window_width() / 2)
+        
+        if yco <= floor + 20: #Floor
+            yco = floor + 20
+            dy = dy * ekeep
+            dx = dx * efade
+
+        if yco >= floor * -1 - 20: #Ceiling
+            yco = floor * -1 - 20
+            dy = dy * ekeep
+            dx = dx * efade
+
+        if xco >= walls - 5: #Right Wall
+            xco = walls * -1 + 15
+
+        if walls * -1 + 5 >= xco: #Left Wall
+            xco = walls - 15
+
+        dy = round(dy,2)
+        dx = round(dx,2)
+        
+        yco = yco + dy
+        dy = dy - g
+        xco = xco + dx
+        dx = dx / 1.001
+
+        dyco = yco
+        dxco = xco
+
+        if floor - 21.5 <= yco <= floor + 21.5:
+            dyco = floor + 20
+
+        ball.goto(dxco, dyco)
+
+        if loop == 0:
+            ball.clear()    
