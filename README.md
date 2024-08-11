@@ -1,4 +1,4 @@
-# Python-Turtle-Ball-Physics
+# Python-makeshiftBallPhysics
 While messing with Python UIs using Turtle for the first time, I made a program that replicates simple physics on a ball; here's the result.
 
 ### All the files included work independently.
